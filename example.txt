@@ -1,0 +1,6 @@
+Add this to notification line, multiple recipients allowed if separated by a comma..
+
+{"To":"person1@test.com,person2@test.com","Subject":"%device% is %value%","Text":"First detected: %date% %time%"}
+
+Case IS important for the JSON elements so be careful.
+

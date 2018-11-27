@@ -1,0 +1,17 @@
+{
+  "name": "donetstuff",
+  "version": "1.0.0",
+  "description": "Basic REST server for doing \"stuff\" like sending email.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eric Huebl",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "express-convention-routes": "^1.0.5",
+    "nodemailer": "^4.7.0"
+  }
+}
