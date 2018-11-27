@@ -10,7 +10,7 @@ set the proper URL - make sure to use port 3000 as it is the default.
 
 You should then be able to use this device wherever notification is required.
 
-In the Notifu text field the data is entered thusly:
+In the Notify text field the data is entered thusly:
 
 {"To":"Person1@SomeEmail.com,Person2@SomeOtherEmail.com","Subject":"Hope this works","Text":"This is the email body!"}
 
