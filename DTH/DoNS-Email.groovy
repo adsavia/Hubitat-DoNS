@@ -3,9 +3,11 @@
 *   File: DoNS-Email.groovy
 *   Platform: Hubitat
 *   Modification History:
-*       Date       Who              What
-*       2018-11-27 Eric Huebl		Used Dan Ogorchock's pushover DTH for Hubitat HE as a template.
-*       2018-11-28 Eric Huebl		Added ability to use single message / to in device.
+*       Date        Time	Who             What
+*       2018-11-27 			Eric Huebl		Used Dan Ogorchock's pushover DTH for Hubitat HE as a template.
+*       2018-11-28	10:04	Eric Huebl		Added ability to use single message / to in device.
+*       2018-11-28	12:05	Eric Huebl		Added bypass to try/catch error if message is "OK"
+*											tweaked version to fit work a bit better.
 *
 *  Copyright 2018 Eric Huebl
 *
@@ -20,7 +22,7 @@
 *
 *
 */
-def version() {"v1.0.1"}
+def version() {"v1.1.1"}
 
 preferences {
 	input("DoNSUrl", "text", title: "DoNetStuff Email URL:", description: "[ip address][:port]/email")
@@ -93,13 +95,13 @@ def deviceNotification(message) {
 				log.error "Received HTTP error ${response.status}"
 			}
 			else {
-				log.debug "Message Received"
+				log.debug "Message Sent"
 			}
 		}
 	} catch(Exception e) {
-		log.error e.message
-		log.error "Problem parsing notification text: ${message}, should be in JSON format with To, Subject, Text elements defined."
+		if(e.message.toString() != "OK"){
+			log.error e.message
+		}
 	}
 
-	
 }
