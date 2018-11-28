@@ -5,6 +5,7 @@
 *   Modification History:
 *       Date       Who              What
 *       2018-11-27 Eric Huebl		Used Dan Ogorchock's pushover DTH for Hubitat HE as a template.
+*       2018-11-28 Eric Huebl		Added ability to use single message / to in device.
 *
 *  Copyright 2018 Eric Huebl
 *
@@ -19,11 +20,13 @@
 *
 *
 */
-def version() {"v1.0.0"}
+def version() {"v1.0.1"}
 
 preferences {
 	input("DoNSUrl", "text", title: "DoNetStuff Email URL:", description: "[ip address][:port]/email")
 	input("From", "text", title: "From:", description: "")
+	input("To", "text", title: "To:", description: "")
+	input("Subject", "text", title: "Subject:", description: "")
 }
 
 metadata {
@@ -47,21 +50,30 @@ def initialize() {
 
 def deviceNotification(message) {
 
-	// Parse out message for from/to/subject/text
-	def slurper = new groovy.json.JsonSlurper()
-	def result = slurper.parseText("${message}")
+	def msg = "${message}"
+	def emlFrom = "${From}"
+	def emlText = ""
+	def emlSubject = ""
+	def emlTo = ""
+	def postBody = []
 	
-	try {
-	
-		def emlText = result.Text
-		def emlSubject = result.Subject
-		def emlTo = result.To
-		def emlFrom = "${From}"
+	if(msg.substring(0,1) == "{") {
+		// Parse out message for from/to/subject/text
+		def slurper = new groovy.json.JsonSlurper()
+		def result = slurper.parseText(msg)
+		emlText = result.Text
+		emlSubject = result.Subject
+		emlTo = result.To
+		
+	} else {
+		emlText = msg
+		emlSubject = "${Subject}"
+		emlTo = "${To}"
+	}
 
-		
-		
+	try {
 		// Define the initial postBody
-		def postBody = [
+		postBody = [
 			From: emlFrom
 			,To: emlTo
 			,Subject: emlSubject,
@@ -88,4 +100,6 @@ def deviceNotification(message) {
 		log.error e.message
 		log.error "Problem parsing notification text: ${message}, should be in JSON format with To, Subject, Text elements defined."
 	}
+
+	
 }
