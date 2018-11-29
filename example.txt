@@ -12,6 +12,7 @@ Case IS important for the JSON elements so be careful.
 
 ##########################
 #
-# For single recipient style notification make sure the "From", "To", "Subject" lines are filled 
-# out in the device preferences and use a "normal" notification message in an App/Rule notification text.
+# For "normal" style notifications make sure the "From", "To", "Subject" lines are filled 
+# out in the device preferences and use a standard notification message in an App/Rule 
+# notification text with no formatting characters.
 #
