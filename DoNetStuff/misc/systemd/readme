@@ -1,0 +1,6 @@
+Copy DoNetStuff.service over to systemd system dir.
+
+sudo cp DoNetStuff.service /etc/systemd/system
+
+sudo systemctl enable DoNetStuff.service
+
