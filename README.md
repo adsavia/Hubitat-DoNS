@@ -1,4 +1,11 @@
 # Hubitat-DoNS
+
+#########################
+
+UPDATE 11/28/18 - added feature to set subject/to in the device preferences and the message in the text notification box in your app/rule etc.
+
+#########################
+
 This is a very crude and as yet unsecured system for sending notifications from Hubitat using a simple DTH 
 and a Node Server via a REST call.
 
