@@ -8,6 +8,7 @@
 *       2018-11-28	10:04	Eric Huebl		Added ability to use single message / to in device.
 *       2018-11-28	12:05	Eric Huebl		Added bypass to try/catch error if message is "OK"
 *											tweaked version to fit work a bit better.
+*       2019-01-31	08:54	Eric Huebl		Changed call to async for better system performance, tweaked subject to display blank instead of null
 *
 *  Copyright 2018 Eric Huebl
 *
@@ -22,7 +23,7 @@
 *
 *
 */
-def version() {"v1.1.1"}
+def version() {"v1.2.0"}
 
 preferences {
 	input("DoNSUrl", "text", title: "DoNetStuff Email URL:", description: "[ip address][:port]/email")
@@ -64,7 +65,7 @@ def deviceNotification(message) {
 		def slurper = new groovy.json.JsonSlurper()
 		def result = slurper.parseText(msg)
 		emlText = result.Text
-		emlSubject = result.Subject
+		emlSubject = (result.Subject != null ? result.Subject : "")
 		emlTo = result.To
 		
 	} else {
@@ -86,10 +87,15 @@ def deviceNotification(message) {
 		def params = [
 			uri: "${DoNSUrl}",
 			contentType: "application/json",
-			requestContentType: "application/x-www-form-urlencoded",
+			//requestContentType: "application/x-www-form-urlencoded",
+			requestContentType: 'application/json',			
 			body: postBody
 		]
 
+		
+		asynchttpPost('httpCallback', params, [success: true])
+
+		/*
 		httpPost(params){response ->
 			if(response.status != 200) {
 				log.error "Received HTTP error ${response.status}"
@@ -98,10 +104,18 @@ def deviceNotification(message) {
 				log.debug "Message Sent"
 			}
 		}
+		*/
 	} catch(Exception e) {
 		if(e.message.toString() != "OK"){
 			log.error e.message
 		}
 	}
 
+}
+
+def httpCallback(response, data) {
+	if(data["success"]==true){
+    	log.debug "data was passed successfully"
+	}
+    log.debug "status of post call is: ${response.status}"
 }
