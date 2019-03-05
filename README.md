@@ -7,45 +7,41 @@ specific recipients via email. It can also be used for unlimited text notificati
 Phone provider offers an email to text email address. Note: most US providers DO..
 
 #########################################################
-# Providers Email to Txt Email Addresses
+### US Cell Providers "Email to Txt" Email Addresses
+#########################################################
+# AT&T: {cell number}@txt.att.net (SMS), {cell number}@mms.att.net (MMS)
+# T-Mobile: {cell number}@tmomail.net (SMS & MMS)
+# Verizon: {cell number}@vtext.com (SMS), {cell number}@vzwpix.com (MMS)
+# Sprint: {cell number}@messaging.sprintpcs.com (SMS), {cell number}@pm.sprint.com (MMS)
+# XFinity Mobile: {cell number}@vtext.com (SMS), {cell number}@mypixmessages.com (MMS)
+# Virgin Mobile: {cell number}@vmobl.com (SMS), {cell number}@vmpix.com (MMS)
+# Tracfone: {cell number}@mmst5.tracfone.com (MMS)
+# Metro PCS: {cell number}@mymetropcs.com (SMS & MMS)
+# Boost Mobile: {cell number}@sms.myboostmobile.com (SMS), {cell number}@myboostmobile.com (MMS)
+# Cricket: {cell number}@sms.cricketwireless.net (SMS), {cell number}@mms.cricketwireless.net (MMS)
+# Republic Wireless: {cell number}@text.republicwireless.com (SMS)
+# Google Fi (Project Fi): {cell number}@msg.fi.google.com (SMS & MMS)
+# U.S. Cellular: {cell number}@email.uscc.net (SMS), {cell number}@mms.uscc.net (MMS)
+# Ting: {cell number}@message.ting.com
+# Consumer Cellular: {cell number}@mailmymobile.net
+# C-Spire: {cell number}@cspire1.com
+# Page Plus: {cell number}@vtext.com
+#########################################################
+#### The system works by installing by a custom device that communicates with a NodeJS via a REST call.
+#### The server parses the request and sends it out via "sendmail".
 #########################################################
 
-AT&T: {cell number}@txt.att.net (SMS), {cell number}@mms.att.net (MMS)
-T-Mobile: {cell number}@tmomail.net (SMS & MMS)
-Verizon: {cell number}@vtext.com (SMS), {cell number}@vzwpix.com (MMS)
-Sprint: {cell number}@messaging.sprintpcs.com (SMS), {cell number}@pm.sprint.com (MMS)
-XFinity Mobile: {cell number}@vtext.com (SMS), {cell number}@mypixmessages.com (MMS)
-Virgin Mobile: {cell number}@vmobl.com (SMS), {cell number}@vmpix.com (MMS)
-Tracfone: {cell number}@mmst5.tracfone.com (MMS)
-Metro PCS: {cell number}@mymetropcs.com (SMS & MMS)
-Boost Mobile: {cell number}@sms.myboostmobile.com (SMS), {cell number}@myboostmobile.com (MMS)
-Cricket: {cell number}@sms.cricketwireless.net (SMS), {cell number}@mms.cricketwireless.net (MMS)
-Republic Wireless: {cell number}@text.republicwireless.com (SMS)
-Google Fi (Project Fi): {cell number}@msg.fi.google.com (SMS & MMS)
-U.S. Cellular: {cell number}@email.uscc.net (SMS), {cell number}@mms.uscc.net (MMS)
-Ting: {cell number}@message.ting.com
-Consumer Cellular: {cell number}@mailmymobile.net
-C-Spire: {cell number}@cspire1.com
-Page Plus: {cell number}@vtext.com
-
-#########################################################
-
-The system works by installing by a custom device that communicates with a NodeJS via a REST call.
-The server parses the request and sends it out via "sendmail".
-
-#########################################################
-
-Requirements:
+##### Requirements:
 
 Linux computer/server (like RaspberryPI) with Git, NodeJS, npm and sendmail installed.
 Hubitat HE hub with the custom DoNS_Email device added to the "Drivers Code" section.
 
 #########################################################
 
-Simple installation instructions - your mileage may vary depending 
-upon your system - I am using a Raspberry PI:
+##### Simple installation instructions - your mileage may vary depending 
+##### upon your system - I am using a Raspberry PI:
 
-Linux Server side:
+##### Linux Server side:
 - As root clone this repo to a working directory (I used the PI's home directory).
 - from a terminal, cd to the directory and run "npm install". This should install all the necessary components.
 - see if it runs via "node app.js"
@@ -53,11 +49,11 @@ Linux Server side:
 https://github.com/adsavia/Hubitat-DoNS/tree/master/DoNetStuff/misc/systemd
 Note: !!!! IF your directory is different you will have to edit the service file and change the locations.
 
-HE side:
+##### HE side:
 - From github view raw format for the https://github.com/adsavia/Hubitat-DoNS/blob/master/HE_Driver/DoNS-Email.groovy
 - Cut and paste it into a new device in the drivers code section on your HE. Save
 
-2 different usage possibilities:
+###### 2 different usage possibilities:
 
 1) Hard coded device per contact(s).
 - Add new device, select "DoNS-Email" device. Label something like "DoNS-MyEmail" or "DoNS-MyPhone", save.
