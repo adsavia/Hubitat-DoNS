@@ -9,23 +9,23 @@ Phone provider offers an email to text email address. Note: most US providers DO
 #########################################################
 ### US Cell Providers "Email to Txt" Email Addresses
 #########################################################
-# AT&T: {cell number}@txt.att.net (SMS), {cell number}@mms.att.net (MMS)
-# T-Mobile: {cell number}@tmomail.net (SMS & MMS)
-# Verizon: {cell number}@vtext.com (SMS), {cell number}@vzwpix.com (MMS)
-# Sprint: {cell number}@messaging.sprintpcs.com (SMS), {cell number}@pm.sprint.com (MMS)
-# XFinity Mobile: {cell number}@vtext.com (SMS), {cell number}@mypixmessages.com (MMS)
-# Virgin Mobile: {cell number}@vmobl.com (SMS), {cell number}@vmpix.com (MMS)
-# Tracfone: {cell number}@mmst5.tracfone.com (MMS)
-# Metro PCS: {cell number}@mymetropcs.com (SMS & MMS)
-# Boost Mobile: {cell number}@sms.myboostmobile.com (SMS), {cell number}@myboostmobile.com (MMS)
-# Cricket: {cell number}@sms.cricketwireless.net (SMS), {cell number}@mms.cricketwireless.net (MMS)
-# Republic Wireless: {cell number}@text.republicwireless.com (SMS)
-# Google Fi (Project Fi): {cell number}@msg.fi.google.com (SMS & MMS)
-# U.S. Cellular: {cell number}@email.uscc.net (SMS), {cell number}@mms.uscc.net (MMS)
-# Ting: {cell number}@message.ting.com
-# Consumer Cellular: {cell number}@mailmymobile.net
-# C-Spire: {cell number}@cspire1.com
-# Page Plus: {cell number}@vtext.com
+###### AT&T: {cell number}@txt.att.net (SMS), {cell number}@mms.att.net (MMS)
+###### T-Mobile: {cell number}@tmomail.net (SMS & MMS)
+###### Verizon: {cell number}@vtext.com (SMS), {cell number}@vzwpix.com (MMS)
+###### Sprint: {cell number}@messaging.sprintpcs.com (SMS), {cell number}@pm.sprint.com (MMS)
+###### XFinity Mobile: {cell number}@vtext.com (SMS), {cell number}@mypixmessages.com (MMS)
+###### Virgin Mobile: {cell number}@vmobl.com (SMS), {cell number}@vmpix.com (MMS)
+###### Tracfone: {cell number}@mmst5.tracfone.com (MMS)
+###### Metro PCS: {cell number}@mymetropcs.com (SMS & MMS)
+###### Boost Mobile: {cell number}@sms.myboostmobile.com (SMS), {cell number}@myboostmobile.com (MMS)
+###### Cricket: {cell number}@sms.cricketwireless.net (SMS), {cell number}@mms.cricketwireless.net (MMS)
+###### Republic Wireless: {cell number}@text.republicwireless.com (SMS)
+###### Google Fi (Project Fi): {cell number}@msg.fi.google.com (SMS & MMS)
+###### U.S. Cellular: {cell number}@email.uscc.net (SMS), {cell number}@mms.uscc.net (MMS)
+###### Ting: {cell number}@message.ting.com
+###### Consumer Cellular: {cell number}@mailmymobile.net
+###### C-Spire: {cell number}@cspire1.com
+###### Page Plus: {cell number}@vtext.com
 #########################################################
 #### The system works by installing by a custom device that communicates with a NodeJS via a REST call.
 #### The server parses the request and sends it out via "sendmail".
