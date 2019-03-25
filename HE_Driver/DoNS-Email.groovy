@@ -3,12 +3,13 @@
 *   File: DoNS-Email.groovy
 *   Platform: Hubitat
 *   Modification History:
-*       Date        Time	Who             What
-*       2018-11-27 			Eric Huebl		Used Dan Ogorchock's pushover DTH for Hubitat HE as a template.
-*       2018-11-28	10:04	Eric Huebl		Added ability to use single message / to in device.
-*       2018-11-28	12:05	Eric Huebl		Added bypass to try/catch error if message is "OK"
+*       		Date        Time	Who		What
+*       		2018-11-27 			Eric H	Used Dan Ogorchock's pushover DTH for Hubitat HE as a template.
+*       		2018-11-28	10:04	Eric H	Added ability to use single message / to in device.
+*       v1.1.0	2018-11-28	12:05	Eric H	Added bypass to try/catch error if message is "OK"
 *											tweaked version to fit work a bit better.
-*       2019-01-31	08:54	Eric Huebl		Changed call to async for better system performance, tweaked subject to display blank instead of null
+*       v1.2.0	2019-01-31	08:54	Eric H	Changed call to async for better system performance, tweaked subject to display blank instead of null
+*       v1.2.1	2019-03-25	07:57	Eric H	Minor bug fix, removed "null" subject display for preconfigured email devices.
 *
 *  Copyright 2018 Eric Huebl
 *
@@ -23,7 +24,7 @@
 *
 *
 */
-def version() {"v1.2.0"}
+def version() {"v1.2.1"}
 
 preferences {
 	input("DoNSUrl", "text", title: "DoNetStuff Email URL:", description: "[ip address][:port]/email")
@@ -70,7 +71,7 @@ def deviceNotification(message) {
 		
 	} else {
 		emlText = msg
-		emlSubject = "${Subject}"
+		emlSubject = (Subject != null ? "${Subject}" : "")
 		emlTo = "${To}"
 	}
 
