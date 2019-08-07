@@ -44,6 +44,8 @@ Hubitat HE hub with the custom DoNS_Email device added to the "Drivers Code" sec
 ##### Linux Server side:
 - As root clone this repo to a working directory (I used the PI's home directory).
 - from a terminal, cd to the directory and run "npm install". This should install all the necessary components.
+- if planning on using services requiring authorization (google/smtps) then edit the "eml_config.js"
+  file and replace the placeholder entries with real ones.
 - see if it runs via "node app.js"
 - If so then you can you can add that to startup OR if using systemd see this:
 https://github.com/adsavia/Hubitat-DoNS/tree/master/DoNetStuff/misc/systemd
@@ -53,27 +55,19 @@ Note: !!!! IF your directory is different you will have to edit the service file
 - From github view raw format for the https://github.com/adsavia/Hubitat-DoNS/blob/master/HE_Driver/DoNS-Email.groovy
 - Cut and paste it into a new device in the drivers code section on your HE. Save
 
-###### 2 different usage possibilities:
+###### usage:
 
-1) Hard coded device per contact(s).
+One Hard coded device per contact(s)!!
 - Add new device, select "DoNS-Email" device. Label something like "DoNS-MyEmail" or "DoNS-MyPhone", save.
-- Put the ip address/port (default 3000) of the server you are running.
+- Put the ip address/port (default 3000) of the node server you are running.
 - In preferences fill in the "From:" and "To:" fields (multiple addresses separated by a comma), "Subject:" is optional..
-- Save preferences.
+- Select service (sendmail/google/smtps 587). If other than sendmail make sure 
+  you've edited the eml_config.js file on the node server!!!
+- Save preferences. You should notice a new state variable called "authusers".
+  these are the valid auth users you can use (that are stored in eml_config).
 - To test enter a test message in "Device Notification" and click on the 
-Device Notification header. If everything is working you should recieve an 
-email with your test message and parameters you defined.
+  Device Notification header. If everything is working you should recieve an 
+  email with your test message and parameters you defined.
 - Use device for any notifications you want!!!!!
-
-2) Non-specialized (older method) - only need one device.
-- Add new device, select "DoNS-Email" device
-- Put the ip address/port (default 3000) of the server you are running.
-- In preferences fill in the "From:" value and save.
-- To test enter a test message in "Device Notification" like this:
-{"To":"Person1@SomeEmail.com,Person2@SomeOtherEmail.com","Subject":"Hope this works","Text":"This is the email body!"}
-Note: !!!! include brackets and everything !!!!!
-then click on the Device Notification header.. email should be sent according to your 
-specifications..
-- use with any notification device making sure to save the text body in the above format.
 
 
