@@ -10,6 +10,7 @@
 *											tweaked version to fit work a bit better.
 *       v1.2.0	2019-01-31	08:54	Eric H	Changed call to async for better system performance, tweaked subject to display blank instead of null
 *       v1.2.1	2019-03-25	07:57	Eric H	Minor bug fix, removed "null" subject display for preconfigured email devices.
+*       v2.0.0	2019-08-06	22:31	Eric H	Added Google, smtp and SMTPS transports.
 *
 *  Copyright 2018 Eric Huebl
 *
@@ -24,10 +25,16 @@
 *
 *
 */
-def version() {"v1.2.1"}
+def version() {"v2.0.0"}
 
 preferences {
 	input("DoNSUrl", "text", title: "DoNetStuff Email URL:", description: "[ip address][:port]/email")
+	input(name: "service", defaultValue: "sendmail", type: "enum", title: "Service", options: ["sendmail","google","smtp","smtps"])
+
+	input("server", "text", title: "Server:", description: "email server, okay to leave blank for google/sendmail)")
+	input("authuser", "text", title: "Auth User:", description: "")
+	input("authpwd", "text", title: "Auth Password:", description: "")
+	
 	input("From", "text", title: "From:", description: "")
 	input("To", "text", title: "To:", description: "")
 	input("Subject", "text", title: "Subject:", description: "")
@@ -82,6 +89,10 @@ def deviceNotification(message) {
 			,To: emlTo
 			,Subject: emlSubject,
 			,Text: emlText
+			,service: "${service}"
+			,server: "${server}"
+			,authuser: "${authuser}"
+			,authpwd: "${authpwd}"
 		]
 
 		// Prepare the package to be sent

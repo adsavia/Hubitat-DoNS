@@ -3,10 +3,10 @@ Description=DoNetStuff for Hubitat Service
 After=network.target
 
 [Service]
-WorkingDirectory=/home/pi/Hubitat-DoNS/DoNetStuff
+WorkingDirectory=/home/adsavia/Hubitat-DoNS/DoNetStuff
 ExecStart=/usr/bin/npm start
 Restart=on-failure
-User=pi
+User=adsavia
 Environment=PORT=3000
 
 [Install]
