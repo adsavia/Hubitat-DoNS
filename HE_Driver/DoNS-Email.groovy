@@ -11,6 +11,8 @@
 *       v1.2.0	2019-01-31	08:54	Eric H	Changed call to async for better system performance, tweaked subject to display blank instead of null
 *       v1.2.1	2019-03-25	07:57	Eric H	Minor bug fix, removed "null" subject display for preconfigured email devices.
 *       v2.0.0	2019-08-06	22:31	Eric H	Added Google, smtp and SMTPS transports.
+*       v2.1.0	2019-08-07	08:02	Eric H	Moved auth password to eml_config.js on server. 
+*       v2.1.1	2019-08-07	16:00	Eric H	Updated to add state variable authusers, fixed some bugs re:dup submit 
 *
 *  Copyright 2018 Eric Huebl
 *
@@ -25,15 +27,15 @@
 *
 *
 */
-def version() {"v2.0.0"}
+def version() {"v2.1.1"}
 
 preferences {
 	input("DoNSUrl", "text", title: "DoNetStuff Email URL:", description: "[ip address][:port]/email")
-	input(name: "service", defaultValue: "sendmail", type: "enum", title: "Service", options: ["sendmail","google","smtp","smtps"])
+	input(name: "service", defaultValue: "sendmail", type: "enum", title: "Service", options: ["sendmail","google","smtps (587)"])
 
 	input("server", "text", title: "Server:", description: "email server, okay to leave blank for google/sendmail)")
 	input("authuser", "text", title: "Auth User:", description: "")
-	input("authpwd", "text", title: "Auth Password:", description: "")
+	//input("authpwd", "text", title: "Auth Password:", description: "")
 	
 	input("From", "text", title: "From:", description: "")
 	input("To", "text", title: "To:", description: "")
@@ -44,6 +46,8 @@ metadata {
     definition (name: "DoNS-Email", namespace: "adsavia", author: "Eric Huebl") {
         capability "Notification"
         capability "Actuator"
+		
+		//attribute "FromServer", "string"
     }
 }
 
@@ -56,7 +60,23 @@ def updated() {
 }
 
 def initialize() {
+	//unschedule()
+	state.clear()
     state.version = version()
+	setAllowedEmailList()
+}
+
+def setAllowedEmailList() {
+	emlList = asynchttpGet('httpGetEmlList'
+	,[
+		uri: "${DoNSUrl}",
+		contentType: "application/json",
+		requestContentType: 'application/json',			
+	]);
+}
+
+def httpGetEmlList(response, data) {
+  state.authusers = parseJson(response.data).AllowedAddrs
 }
 
 def deviceNotification(message) {
@@ -92,7 +112,7 @@ def deviceNotification(message) {
 			,service: "${service}"
 			,server: "${server}"
 			,authuser: "${authuser}"
-			,authpwd: "${authpwd}"
+			//,authpwd: "${authpwd}"
 		]
 
 		// Prepare the package to be sent
@@ -103,20 +123,8 @@ def deviceNotification(message) {
 			requestContentType: 'application/json',			
 			body: postBody
 		]
-
-		
 		asynchttpPost('httpCallback', params, [success: true])
 
-		/*
-		httpPost(params){response ->
-			if(response.status != 200) {
-				log.error "Received HTTP error ${response.status}"
-			}
-			else {
-				log.debug "Message Sent"
-			}
-		}
-		*/
 	} catch(Exception e) {
 		if(e.message.toString() != "OK"){
 			log.error e.message

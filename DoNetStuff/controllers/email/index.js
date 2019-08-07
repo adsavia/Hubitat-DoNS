@@ -1,4 +1,5 @@
 var nodemailer = require('nodemailer');
+var emlCnf = require('../../eml_config');
 
 var tpInfo = {
 	"sendmail": {
@@ -15,16 +16,7 @@ var tpInfo = {
 			pass: ''
 		}
 	}
-	, "smtp": {
-		host: '',
-		port: 22,
-		secure: false, // true for 465, false for other ports
-		auth: {
-		  user: '', // generated ethereal user
-		  pass: '' // generated ethereal password
-		}
-	}
-	, "smtps": {
+	, "smtps (587)": {
 		host: '',
 		port: 587,
 		secureConnection: true, // true for 465, false for other ports
@@ -48,7 +40,15 @@ var transporter = nodemailer.createTransport({
 */
 
 module.exports = function(router){
-	
+
+	router.get('/', function (req, res) {
+		var emls = [];
+		for (let elem in emlCnf) {  
+			console.log( elem );
+			emls.push(elem);
+		}
+		res.send({ AllowedAddrs :emls} );
+	});
 	
 	router.post('/', function (req, res) {
 		var eml = req.body
@@ -56,55 +56,27 @@ module.exports = function(router){
 		//console.log(req.body);
 		var tp = tpInfo[eml.service];
 
-		var mailInfo = {};
+		var mailInfo = {
+			from: eml.From,
+			to: eml.To,
+			subject: eml.Subject,
+			text: eml.Text,
+		};
+		
+		
 		switch (eml.service) {
 			case "google":
-				// tp.service = eml.service;
 				tp.auth.user = eml.authuser;
-				tp.auth.pass = eml.authpwd;
-				
-				mailInfo = {
-					from: eml.From,
-					to: eml.To,
-					subject: eml.Subject,
-					text: eml.Text,
-				};
+				//tp.auth.pass = eml.authpwd;
+				// pull password from eml_conf.js
+				tp.auth.pass = emlCnf[eml.authuser].authpwd;
 				break;
 				
-			case "smtp":
-				tp.server = eml.server;
-				tp.auth.user = eml.authuser;
-				tp.auth.pass = eml.authpwd;
-			
-				mailInfo = {
-					host: eml.server,
-					port: 587,
-					secure: false, 
-					auth: {
-						user: eml.authuser, // generated ethereal user
-						pass: eml.authpwd // generated ethereal password
-					}
-				}
-				break;
-			case "smtps":
+			case "smtps (587)":
 				tp.host = eml.server;
 				tp.auth.user = eml.authuser;
-				tp.auth.pass = eml.authpwd;
-				
-				mailInfo = {
-					from: eml.From,
-					to: eml.To,
-					subject: eml.Subject,
-					text: eml.Text,
-				}
+				tp.auth.pass = emlCnf[eml.authuser].authpwd;
 				break;
-			default:
-				mailInfo = {
-					from: eml.From,
-					to: eml.To,
-					subject: eml.Subject,
-					text: eml.Text,
-				}
 		}
 		
 		console.log('----------------');
@@ -122,12 +94,13 @@ module.exports = function(router){
 			}
 		});
 		
+		/*
 		transport.sendMail(tp, (err, info) => {
 			//console.log(info);
 			//console.log(info.envelope);
 			//console.log(info.messageId);
 		});		
-		
+		*/
 
 	/*
 		transporter.sendMail({
