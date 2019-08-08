@@ -57,12 +57,17 @@ Note: !!!! IF your directory is different you will have to edit the service file
 
 ###### usage:
 
-One Hard coded device per contact(s)!!
+One HE device per email address!!
 - Add new device, select "DoNS-Email" device. Label something like "DoNS-MyEmail" or "DoNS-MyPhone", save.
 - Put the ip address/port (default 3000) of the node server you are running.
 - In preferences fill in the "From:" and "To:" fields (multiple addresses separated by a comma), "Subject:" is optional..
-- Select service (sendmail/google/smtps 587). If other than sendmail make sure 
-  you've edited the eml_config.js file on the node server!!!
+- Select service (sendmail/google/"smtps (587)"). 
+
+!!!!!!!!
+If using something other than sendmail make sure you've created an eml_config.js file on the node server - see example file!!!
+Also note that the "From" user is used as a lookup in the eml_config file and can be different from the authuser. No dup "From" users of course.
+!!!!!!!!
+
 - Save preferences. You should notice a new state variable called "authusers".
   these are the valid auth users you can use (that are stored in eml_config).
 - To test enter a test message in "Device Notification" and click on the 
