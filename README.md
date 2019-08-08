@@ -28,7 +28,7 @@ Phone provider offers an email to text email address. Note: most US providers DO
 ###### Page Plus: {cell number}@vtext.com
 #########################################################
 #### The system works by installing by a custom device that communicates with a NodeJS via a REST call.
-#### The server parses the request and sends it out via "sendmail".
+#### The server parses the request and sends it out via "sendmail"/"Google" or a secure SMTP server using port 587.
 #########################################################
 
 ##### Requirements:
