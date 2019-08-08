@@ -13,6 +13,7 @@
 *       v2.0.0	2019-08-06	22:31	Eric H	Added Google, smtp and SMTPS transports.
 *       v2.1.0	2019-08-07	08:02	Eric H	Moved auth password to eml_config.js on server. 
 *       v2.1.1	2019-08-07	16:00	Eric H	Updated to add state variable authusers, fixed some bugs re:dup submit 
+*       v2.1.2	2019-08-08	07:00	Eric H	Moved both authuser and authpwd to eml_config.js file, lookup based on From user. 
 *
 *  Copyright 2018 Eric Huebl
 *
@@ -27,7 +28,7 @@
 *
 *
 */
-def version() {"v2.1.1"}
+def version() {"v2.1.2"}
 
 preferences {
 	input("DoNSUrl", "text", title: "DoNetStuff Email URL:", description: "[ip address][:port]/email")
