@@ -64,18 +64,17 @@ module.exports = function(router){
 		};
 		
 		
+		// pull user/password from eml_conf.js instead of HE
 		switch (eml.service) {
 			case "google":
-				tp.auth.user = eml.authuser;
-				//tp.auth.pass = eml.authpwd;
-				// pull password from eml_conf.js
-				tp.auth.pass = emlCnf[eml.authuser].authpwd;
+				tp.auth.user = emlCnf[eml.From].authuser;
+				tp.auth.pass = emlCnf[eml.From].authpwd;
 				break;
 				
 			case "smtps (587)":
 				tp.host = eml.server;
-				tp.auth.user = eml.authuser;
-				tp.auth.pass = emlCnf[eml.authuser].authpwd;
+				tp.auth.user = emlCnf[eml.From].authuser;
+				tp.auth.pass = emlCnf[eml.From].authpwd;
 				break;
 		}
 		

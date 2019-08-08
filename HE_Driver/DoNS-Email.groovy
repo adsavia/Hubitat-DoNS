@@ -34,7 +34,7 @@ preferences {
 	input(name: "service", defaultValue: "sendmail", type: "enum", title: "Service", options: ["sendmail","google","smtps (587)"])
 
 	input("server", "text", title: "Server:", description: "email server, okay to leave blank for google/sendmail)")
-	input("authuser", "text", title: "Auth User:", description: "")
+	//input("authuser", "text", title: "Auth User:", description: "")
 	//input("authpwd", "text", title: "Auth Password:", description: "")
 	
 	input("From", "text", title: "From:", description: "")
@@ -111,7 +111,7 @@ def deviceNotification(message) {
 			,Text: emlText
 			,service: "${service}"
 			,server: "${server}"
-			,authuser: "${authuser}"
+			//,authuser: "${authuser}"
 			//,authpwd: "${authpwd}"
 		]
 
