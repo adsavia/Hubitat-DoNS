@@ -44,8 +44,7 @@ Hubitat HE hub with the custom DoNS_Email device added to the "Drivers Code" sec
 ##### Linux Server side:
 - As root clone this repo to a working directory (I used the PI's home directory).
 - from a terminal, cd to the directory and run "npm install". This should install all the necessary components.
-- if planning on using services requiring authorization (google/smtps) then edit the "eml_config.js"
-  file and replace the placeholder entries with real ones.
+- copy the "eml_config.js.example" file to "eml_config.js" and replace the placeholder entries with real ones. if planning on using services requiring authorization (google/smtps) edit the file and replace the entries with your own. Note: the "From" user is used as a lookup and can be different from the authuser.
 - see if it runs via "node app.js"
 - If so then you can you can add that to startup OR if using systemd see this:
 https://github.com/adsavia/Hubitat-DoNS/tree/master/DoNetStuff/misc/systemd
