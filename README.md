@@ -65,6 +65,9 @@ One HE device per email address!!
 !!!!!!!!
 If using something other than sendmail make sure you've created an eml_config.js file on the node server - see example file!!!
 Also note that the "From" user is used as a lookup in the eml_config file and can be different from the authuser. No dup "From" users of course.
+
+Also BIG note in the eml_config file LEAVE THE QUOTES around all the items that are quoted. In the HE driver preferences, no quotes necessary.
+
 !!!!!!!!
 
 - Save preferences. You should notice a new state variable called "authusers".
