@@ -56,63 +56,68 @@ module.exports = function(router){
 		//console.log(req.body);
 		var tp = tpInfo[eml.service];
 
-		var mailInfo = {
-			from: eml.From,
-			to: eml.To,
-			subject: eml.Subject,
-			text: eml.Text,
-		};
-		
-		
-		// pull user/password from eml_conf.js instead of HE
-		switch (eml.service) {
-			case "google":
-				tp.auth.user = emlCnf[eml.From].authuser;
-				tp.auth.pass = emlCnf[eml.From].authpwd;
-				break;
-				
-			case "smtps (587)":
-				tp.host = eml.server;
-				tp.auth.user = emlCnf[eml.From].authuser;
-				tp.auth.pass = emlCnf[eml.From].authpwd;
-				break;
-		}
-		
-		console.log('----------------');
-		console.log(tp);
-		console.log('================');
-		console.log(mailInfo);
-		
-		var transport = nodemailer.createTransport(
-			tp
-		);
-		
-		transport.sendMail(mailInfo, (error) => {
-			if (error) {
-				console.log(error);
+		if (emlCnf[eml.From]) {
+			var mailInfo = {
+				from: eml.From,
+				to: eml.To,
+				subject: eml.Subject,
+				text: eml.Text,
+			};
+			
+			
+			// pull user/password from eml_conf.js instead of HE
+			switch (eml.service) {
+				case "google":
+					tp.auth.user = emlCnf[eml.From].authuser;
+					tp.auth.pass = emlCnf[eml.From].authpwd;
+					break;
+					
+				case "smtps (587)":
+					tp.host = eml.server;
+					tp.auth.user = emlCnf[eml.From].authuser;
+					tp.auth.pass = emlCnf[eml.From].authpwd;
+					break;
 			}
-		});
-		
-		/*
-		transport.sendMail(tp, (err, info) => {
-			//console.log(info);
-			//console.log(info.envelope);
-			//console.log(info.messageId);
-		});		
-		*/
+			
+			console.log('----------------');
+			console.log(tp);
+			console.log('================');
+			console.log(mailInfo);
+			
+			var transport = nodemailer.createTransport(
+				tp
+			);
+			
+			transport.sendMail(mailInfo, (error) => {
+				if (error) {
+					console.log(error);
+				}
+			});
+			
+			/*
+			transport.sendMail(tp, (err, info) => {
+				//console.log(info);
+				//console.log(info.envelope);
+				//console.log(info.messageId);
+			});		
+			*/
 
-	/*
-		transporter.sendMail({
-			from: eml.From,
-			to: eml.To,
-			subject: eml.Subject,
-			text: eml.Text,
-		}, (err, info) => {
-			//console.log(info.envelope);
-			//console.log(info.messageId);
-		});		
-	*/	
-        res.end('Email Sent!');
+		/*
+			transporter.sendMail({
+				from: eml.From,
+				to: eml.To,
+				subject: eml.Subject,
+				text: eml.Text,
+			}, (err, info) => {
+				//console.log(info.envelope);
+				//console.log(info.messageId);
+			});		
+		*/	
+			res.end('Email Sent!');
+		} else {
+			console.log('Email not sent. Cannot find "' + eml.From + '" in eml_config.js.');
+			res.end('Email not sent. Cannot find "' + eml.From + '" in defined email list.');
+		}
     });
 
 

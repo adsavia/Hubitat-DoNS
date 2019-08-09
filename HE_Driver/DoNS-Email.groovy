@@ -14,6 +14,7 @@
 *       v2.1.0	2019-08-07	08:02	Eric H	Moved auth password to eml_config.js on server. 
 *       v2.1.1	2019-08-07	16:00	Eric H	Updated to add state variable authusers, fixed some bugs re:dup submit 
 *       v2.1.2	2019-08-08	07:00	Eric H	Moved both authuser and authpwd to eml_config.js file, lookup based on From user. 
+*       v2.1.3	2019-08-09	08:00	Eric H	changed state variable authusers to StoredFromAddrs for clarity
 *
 *  Copyright 2018 Eric Huebl
 *
@@ -28,7 +29,7 @@
 *
 *
 */
-def version() {"v2.1.2"}
+def version() {"v2.1.3"}
 
 preferences {
 	input("DoNSUrl", "text", title: "DoNetStuff Email URL:", description: "[ip address][:port]/email")
@@ -77,7 +78,7 @@ def setAllowedEmailList() {
 }
 
 def httpGetEmlList(response, data) {
-  state.authusers = parseJson(response.data).AllowedAddrs
+  state.StoredFromAddrs = parseJson(response.data).AllowedAddrs
 }
 
 def deviceNotification(message) {
