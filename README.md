@@ -116,3 +116,5 @@ cd /home/pi/Hubitat-DoNS/DoNetStuff
 PORT=3000 node app.js
 ```
 Note: leaving off the `PORT=3000 ` bit will default the port to 3000. Also you can run 2 or more instances manually using different port #'s and different terminal sessions - see the "screen" utility for a great way to handle disconnected terminals.
+
+- special thanks to @jtmpush18 in the HE forums for suggesting this basic diagnostic section.
