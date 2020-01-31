@@ -86,12 +86,12 @@ echo "hi" | sendmail -v YourEmail@gmail.com
 ```
 
 - Systemd setup
-Check if service DoNetStuff is working:
+Check if service DoNetStuff is running:
 ```
 sudo systemctl status DoNetStuff
 ```
 
-Check if/how DoNetStuff has been installed:
+Check for DoNetStuff service issues:
 ```
 sudo journalctl -xe
 ```
