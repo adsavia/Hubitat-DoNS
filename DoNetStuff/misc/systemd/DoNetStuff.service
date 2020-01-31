@@ -3,7 +3,7 @@ Description=DoNetStuff for Hubitat Service
 After=network.target
 
 [Service]
-WorkingDirectory=/home/adsavia/Hubitat-DoNS/DoNetStuff
+WorkingDirectory=/home/pi/Hubitat-DoNS/DoNetStuff
 ExecStart=/usr/bin/npm start
 Restart=on-failure
 User=pi
