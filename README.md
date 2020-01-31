@@ -77,4 +77,42 @@ Also BIG note in the eml_config file LEAVE THE QUOTES around all the items that 
   email with your test message and parameters you defined.
 - Use device for any notifications you want!!!!!
 
+###### Diagnostic Notes
 
+- Sendmail
+Check if sendmail is working:
+```
+echo "hi" | sendmail -v YourEmail@gmail.com
+```
+
+- Systemd setup
+Check if service DoNetStuff is working:
+```
+sudo systemctl status DoNetStuff
+```
+
+Check if/how DoNetStuff has been installed:
+```
+sudo journalctl -xe
+```
+
+To change port# in systemd edit the service file usually located at /etc/systemd/system/DoNetStuff.service
+and change the following line from 3000 to desired port. 
+```
+Environment=PORT=3000
+```
+Also make sure things like "User", "WorkingDirectory" and "ExecStart" are all relevent to your particular installation.
+
+- Checking Ports
+Check if the port specified in your configuration is being listened to:
+```
+sudo lsof -i -P -n | grep LISTEN
+```
+
+- To run manually, make sure systemd service is stopped..then go into the appropriate directory and run..
+```
+sudo systemctl stop DoNetStuff
+cd /home/pi/Hubitat-DoNS/DoNetStuff
+PORT=3000 node app.js
+```
+Note: leaving off the `PORT=3000 ` bit will default the port to 3000.
