@@ -32,7 +32,7 @@
 def version() {"v2.1.3"}
 
 preferences {
-	input("DoNSUrl", "text", title: "DoNetStuff Email URL:", description: "[ip address][:port]/email")
+	input("DoNSUrl", "text", title: "DoNetStuff Email URL:", description: "http(s)://[ip address][:port]/email")
 	input(name: "service", defaultValue: "sendmail", type: "enum", title: "Service", options: ["sendmail","google","smtps (587)"])
 
 	input("server", "text", title: "Server:", description: "email server, okay to leave blank for google/sendmail)")
