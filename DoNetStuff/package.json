@@ -13,6 +13,6 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "express-convention-routes": "^1.0.5",
-    "nodemailer": "^4.7.0"
+    "nodemailer": "^6.7.7"
   }
 }
