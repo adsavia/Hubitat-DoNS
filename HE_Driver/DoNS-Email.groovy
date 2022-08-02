@@ -51,7 +51,6 @@ metadata {
 		name: "DoNS-Email", 
 		namespace: "adsavia", 
 		author: "erktrekuebl"
-		importUrl:"https://raw.githubusercontent.com/adsavia/notifyExec/main/HubitatDriver/notifyExec.groovy"
 	)
 	{
         	capability "Notification"
