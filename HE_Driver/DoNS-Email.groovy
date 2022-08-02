@@ -47,12 +47,17 @@ preferences {
 }
 
 metadata {
-    definition (name: "DoNS-Email", namespace: "adsavia", author: "erktrekuebl") {
-        capability "Notification"
-        capability "Actuator"
-		
+	definition (
+		name: "DoNS-Email", 
+		namespace: "adsavia", 
+		author: "erktrekuebl"
+		importUrl:"https://raw.githubusercontent.com/adsavia/notifyExec/main/HubitatDriver/notifyExec.groovy"
+	)
+	{
+        	capability "Notification"
+        	capability "Actuator"
 		//attribute "FromServer", "string"
-    }
+    	}
 }
 
 def installed() {
